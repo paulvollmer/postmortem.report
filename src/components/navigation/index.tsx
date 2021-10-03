@@ -62,8 +62,8 @@ const Navigation = (props: NavigationProps) => {
     return (
         <AppBar position="absolute" color="default" sx={{ position: 'relative' }}>
             <Toolbar>
-                <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                    PostMortem Reporter
+                <Typography variant="subtitle2" sx={{ flexGrow: 1 }}>
+                    Postmortem Report
                 </Typography>
                 <Button
                     id="menu-export-button"

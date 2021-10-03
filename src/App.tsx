@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Autocomplete, CssBaseline, Container, Grid, Button, Typography, TextField, Table, TableCell, TableHead, TableBody, TableRow, IconButton } from "@mui/material";
+import { Autocomplete, CssBaseline, Divider, Container, Grid, Button, TextField, Table, TableCell, TableHead, TableBody, TableRow, IconButton } from "@mui/material";
 import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -71,7 +71,7 @@ function generateMarkdown(data: PostmortemReport) {
     `## Timelined`,
     ``,
     // eslint-disable-next-line
-    ...data.timeline.map(t => t.time+" **"+t.person+"**" + "\n```\n" + t.message + "```\n"),
+    ...data.timeline.map(t => t.time + " **" + t.person + "**" + "\n```\n" + t.message + "```\n"),
     ``,
     `---`,
     ``,
@@ -234,9 +234,9 @@ function App() {
           toggleColorMode={toggleColorMode}
         />
 
-        <Container component="main" maxWidth="xl" sx={{ mb: 4 }}>
+        <Container component="main" maxWidth="xl" sx={{ mb: 2 }}>
           <PaperContainer title="Report">
-            <Grid item xs={8}>
+            <Grid item md={9} sm={8} xs={12}>
               <TextField
                 id="report_title"
                 name="report_title"
@@ -251,7 +251,7 @@ function App() {
               />
             </Grid>
 
-            <Grid item xs={4}>
+            <Grid item md={3} sm={4} xs={12}>
               <DesktopDatePicker
                 label="Date"
                 inputFormat="MM/dd/yyyy"
@@ -386,89 +386,81 @@ function App() {
           </PaperContainer>
 
           <PaperContainer title="Action Items">
-            <Grid item xs={12}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Action Item</TableCell>
-                    <TableCell>Type</TableCell>
-                    <TableCell>Owner</TableCell>
-                    <TableCell>Bug</TableCell>
-                    <TableCell width="1%"></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {actionItems.map((row, index) => (
-                    <TableRow key={index}>
-                      <TableCell sx={{ verticalAlign: "top" }}>
-                        <TextField
-                          id="actionItem"
-                          name="actionItem"
-                          fullWidth
-                          multiline
-                          value={row.actionItem}
-                          onChange={(e) => {
-                            let tmp = actionItems
-                            tmp[index].actionItem = e.target.value
-                            setActionitems([...tmp])
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell sx={{ verticalAlign: "top" }}>
-                        <Autocomplete
-                          id="type"
-                          freeSolo
-                          options={["process", "prevent", "mitigate", "others"]}
-                          renderInput={(params) => <TextField {...params} fullWidth value={row.type}
-                            onChange={e => {
-                              let tmp = actionItems
-                              tmp[index].type = e.target.value
-                              setActionitems([...tmp])
-                            }} />}
-                        />
-                      </TableCell>
-                      <TableCell sx={{ verticalAlign: "top" }}>
-                        <Autocomplete
-                          id="owner"
-                          freeSolo
-                          options={getUniquePeople()}
-                          renderInput={(params) => <TextField {...params} fullWidth value={row.owner}
-                            onChange={e => {
-                              let tmp = actionItems
-                              tmp[index].owner = e.target.value
-                              setActionitems([...tmp])
-                            }} />}
-                        />
-                      </TableCell>
-                      <TableCell sx={{ verticalAlign: "top" }}>
-                        <TextField
-                          id="bug"
-                          name="bug"
-                          fullWidth
-                          multiline
-                          value={row.bug}
-                          onChange={(e) => {
-                            let tmp = actionItems
-                            tmp[index].bug = e.target.value
-                            setActionitems([...tmp])
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <IconButton onClick={() => {
-                          let tmp = actionItems
-                          tmp.splice(index, 1)
-                          setActionitems([...tmp])
-                        }}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Grid>
-            <Grid item xs={12} sm={7} md={5} lg={3} xl={2} >
+            {actionItems.map((row, index) => (
+              <>
+                <Grid item xs={4} sm={4} md={2} lg={2} xl={2}>
+                  <TextField
+                    id="actionItem"
+                    name="actionItem"
+                    label="Action Item"
+                    fullWidth
+                    multiline
+                    value={row.actionItem}
+                    onChange={(e) => {
+                      let tmp = actionItems
+                      tmp[index].actionItem = e.target.value
+                      setActionitems([...tmp])
+                    }}
+                  />
+                </Grid>
+
+                <Grid item xs={3} sm={3} md={2} lg={2} xl={2}>
+                  <Autocomplete
+                    id="type"
+                    freeSolo
+                    options={["process", "prevent", "mitigate", "others"]}
+                    renderInput={(params) => <TextField {...params} fullWidth value={row.type} label="Type"
+                      onChange={e => {
+                        let tmp = actionItems
+                        tmp[index].type = e.target.value
+                        setActionitems([...tmp])
+                      }} />}
+                  />
+                </Grid>
+                <Grid item xs={4} sm={4} md={2} lg={2} xl={2}>
+                  <Autocomplete
+                    id="owner"
+                    freeSolo
+                    options={getUniquePeople()}
+                    renderInput={(params) => <TextField {...params} fullWidth value={row.owner} label="Owner"
+                      onChange={e => {
+                        let tmp = actionItems
+                        tmp[index].owner = e.target.value
+                        setActionitems([...tmp])
+                      }} />}
+                  />
+                </Grid>
+                <Grid item xs={11} sm={11} md={5} lg={5} xl={5}>
+                  <TextField
+                    id="bug"
+                    name="bug"
+                    label="Bug"
+                    fullWidth
+                    multiline
+                    value={row.bug}
+                    onChange={(e) => {
+                      let tmp = actionItems
+                      tmp[index].bug = e.target.value
+                      setActionitems([...tmp])
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={1} sm={1} md={1} lg={1} xl={1}>
+                  <IconButton onClick={() => {
+                    let tmp = actionItems
+                    tmp.splice(index, 1)
+                    setActionitems([...tmp])
+                  }}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item xs={12}>
+                  <Divider />
+                </Grid>
+              </>
+            ))}
+
+            <Grid item xs={11} sm={11} md={11} lg={11} xl={11} >
               <Button variant="contained" color="primary" fullWidth onClick={() => {
                 setActionitems([...actionItems, { actionItem: "", type: "", owner: "", bug: "" }])
               }}>
@@ -479,10 +471,10 @@ function App() {
 
           <PaperContainer title="Lessons Learned">
             <Grid item xs={12}>
-              <Typography variant="h6">What went well</Typography>
               <TextField
                 id="what_went_well"
                 name="what_went_well"
+                label="What went well"
                 fullWidth
                 multiline
                 minRows={3}
@@ -495,10 +487,10 @@ function App() {
             </Grid>
 
             <Grid item xs={12}>
-              <Typography variant="h6">What went wrong</Typography>
               <TextField
                 id="what_went_wrong"
                 name="what_went_wrong"
+                label="What went wrong"
                 fullWidth
                 multiline
                 minRows={3}
@@ -511,10 +503,10 @@ function App() {
             </Grid>
 
             <Grid item xs={12}>
-              <Typography variant="h6">Where we got lucky</Typography>
               <TextField
                 id="where_we_got_lucky"
                 name="where_we_got_lucky"
+                label="Where we got lucky"
                 fullWidth
                 multiline
                 minRows={3}
@@ -585,78 +577,72 @@ const TimelineTable = (props: TimelineProps) => {
 
   return (
     <>
-      <Grid item xs={12}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell width="10%">Time</TableCell>
-              <TableCell width="30%">Person</TableCell>
-              <TableCell>Message</TableCell>
-              <TableCell width="1%"></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {props.data.map((item, index) => (
-              <TableRow key={index}>
-                <TableCell sx={{ verticalAlign: "top" }}>
-                  <TextField
-                    id="time"
-                    name="time"
-                    fullWidth
-                    value={item.time}
-                    onChange={e => {
-                      let tmp = props.data
-                      tmp[index].time = e.target.value
-                      props.onChange([...tmp])
-                    }}
-                  />
-                </TableCell>
-                <TableCell sx={{ verticalAlign: "top" }}>
-                  <Autocomplete
-                    id="person"
-                    freeSolo
-                    options={props.personList}
-                    value={item.person}
-                    renderInput={(params) => <TextField {...params}
-                      fullWidth
-                      value={item.person}
-                      onChange={e => {
-                        let tmp = props.data
-                        tmp[index].person = e.target.value
-                        props.onChange([...tmp])
-                      }} />}
-                  />
-                </TableCell>
-                <TableCell sx={{ verticalAlign: "top" }}>
-                  <TextField
-                    id="message"
-                    name="message"
-                    fullWidth
-                    multiline
-                    value={item.message}
-                    onChange={e => {
-                      let tmp = props.data
-                      tmp[index].message = e.target.value
-                      props.onChange([...tmp])
-                    }}
-                  />
-                </TableCell>
-                <TableCell>
-                  <IconButton onClick={() => {
-                    let tmp = props.data
-                    tmp.splice(index, 1)
-                    props.onChange([...tmp])
-                  }}>
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+      {props.data.map((item, index) => (
+        <>
+          <Grid item xs={3} sm={2} md={2} lg={1} xl={1}>
+            <TextField
+              id="time"
+              name="time"
+              label="Time"
+              fullWidth
+              value={item.time}
+              onChange={e => {
+                let tmp = props.data
+                tmp[index].time = e.target.value
+                props.onChange([...tmp])
+              }}
+            />
+          </Grid>
+          <Grid item xs={8} sm={9} md={3} lg={2} xl={2}>
+            <Autocomplete
+              id="person"
+              freeSolo
+              options={props.personList}
+              value={item.person}
+              renderInput={(params) => <TextField {...params}
+                name="person"
+                label="Person / System"
+                fullWidth
+                value={item.person}
+                onChange={e => {
+                  let tmp = props.data
+                  tmp[index].person = e.target.value
+                  props.onChange([...tmp])
+                }} />}
+            />
+          </Grid>
+          <Grid item xs={11} sm={11} md={6} lg={8} xl={8}>
+            <TextField
+              id="message"
+              name="message"
+              label="Message"
+              fullWidth
+              multiline
+              value={item.message}
+              onChange={e => {
+                let tmp = props.data
+                tmp[index].message = e.target.value
+                props.onChange([...tmp])
+              }}
+            />
+          </Grid>
+          <Grid item xs={1} sm={1} md={1} lg={1} xl={1}>
+            <IconButton sx={{ float: "right" }} onClick={() => {
+              let tmp = props.data
+              tmp.splice(index, 1)
+              props.onChange([...tmp])
+            }}>
+              <DeleteIcon />
+            </IconButton>
+          </Grid>
 
-      </Grid>
-      <Grid item xs={12} sm={7} md={5} lg={3} xl={2} >
+          <Grid item xs={12}>
+            <Divider />
+          </Grid>
+        </>
+      ))}
+
+      <Grid item xs={11} sm={11} md={11} lg={11} >
         <Button variant="contained" color="primary" fullWidth onClick={handleAddTimelineItem}>
           Add
         </Button>
