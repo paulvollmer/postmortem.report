@@ -71,11 +71,12 @@ function generateMarkdown(data: PostmortemReport) {
     `## Timelined`,
     ``,
     // eslint-disable-next-line
-    ...data.timeline.map(t => t.time + " **" + t.person + "**" + "\n```\n" + t.message + "```\n"),
+    ...data.timeline.map(t => t.time + " **" + t.person + "**" + "\n```\n" + t.message + "\n```\n"),
     ``,
     `---`,
     ``,
     `## Support Information`,
+    ``,
     data.supportInformation,
   ]
   return md.join("\n")
