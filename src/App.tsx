@@ -4,7 +4,7 @@ import { Autocomplete, CssBaseline, Container, Grid, Button, Typography, TextFie
 import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { jsPDF } from "jspdf";
+// import { jsPDF } from "jspdf";
 import Navigation from "./components/navigation"
 import PaperContainer from "./components/papercontainer"
 import * as store from './store'
@@ -70,7 +70,8 @@ function generateMarkdown(data: PostmortemReport) {
     ``,
     `## Timelined`,
     ``,
-    ...data.timeline.map(t => `${t.time} **${t.person}**` + "\n```\n" + t.message + "```\n"),
+    // eslint-disable-next-line
+    ...data.timeline.map(t => t.time+" **"+t.person+"**" + "\n```\n" + t.message + "```\n"),
     ``,
     `---`,
     ``,

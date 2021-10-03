@@ -1,4 +1,3 @@
-import { clear } from "console";
 import { ActionItems, Timeline } from "../types"
 
 type UiModes = 'light' | 'dark';
@@ -95,7 +94,6 @@ export const getSupportInformation = localStorage.getItem("supportInformation") 
 export const setSupportInformation = (value: string) => {
     localStorage.setItem("supportInformation", value)
 }
-
 
 export const clearAll = () => {
     localStorage.removeItem("title")

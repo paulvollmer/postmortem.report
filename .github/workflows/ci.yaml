@@ -5,13 +5,7 @@ on:
   pull_request:
 
 jobs:
-  build-backend:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-  build:
+  s build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -31,9 +25,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      #- name: Run the tests
-      #  run: npm test
 
       - name: Build
         run: npm run build
