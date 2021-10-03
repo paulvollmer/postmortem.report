@@ -1,2 +1,3 @@
-# postmortem-reporter
-Postmorten Reporter Webapp
+# postmortem.report
+
+Postmorten Report Webapp
