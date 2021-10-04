@@ -5,6 +5,7 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DeleteIcon from '@mui/icons-material/Delete';
 // import { jsPDF } from "jspdf";
+import Footer from "./components/footer"
 import Navigation from "./components/navigation"
 import PaperContainer from "./components/papercontainer"
 import * as store from './store'
@@ -548,6 +549,8 @@ function App() {
               />
             </Grid>
           </PaperContainer>
+
+          <Footer/>
 
         </Container>
       </LocalizationProvider>
